@@ -1,41 +1,38 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+            require_once "Mail.php";
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+            $host = "ssl://smtp.gmail.com";
+            $username = "nandy.infonaut@gmail.com";
+            $password = "nandeesha_M22";
+            $port = "465";
+            $to = "nandy.infonaut@gmail.com";
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+            $email_from = "nandy.infonaut@gmail.com";
+            $email_subject = "Test Mail" ;
+            $email_body = "whatever you like" ;
+            $email_address = "nandy.infonaut@gmail.com";
+            $content = "text/html; charset=utf-8";
+            $mime = "1.0";
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+            $headers = array ('From' => $email_from,
+                            'To' => $to,
+                            'Subject' => $email_subject,
+                            'Reply-To' => $email_address,
+                            'MIME-Version' => $mime,
+                            'Content-type' => $content);
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+            $params = array  ('host' => $host,
+                            'port' => $port,
+                            'auth' => true,
+                            'username' => $username,
+                            'password' => $password);
 
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
+            $smtp = Mail::factory ('smtp', $params);
+            $mail = $smtp->send($to, $headers, $email_body);
 
-  echo $contact->send();
-?>
+            if (PEAR::isError($mail)) {
+            echo("<p>" . $mail->getMessage() . "</p>");
+            } else {
+            echo("<p>Message sent successfully!</p>");
+            }
+        ?>
