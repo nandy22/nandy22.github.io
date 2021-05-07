@@ -1,16 +1,16 @@
 <?php
             require_once "Mail.php";
 
-            $host = "ssl://smtp.gmail.com";
-            $username = "nandy.infonaut@gmail.com";
-            $password = "nandeesha_M22";
-            $port = "465";
-            $to = "nandy.infonaut@gmail.com";
+            $host = "smtp.gmail.com";
+            $username = "shekhar_katagi@3sitconsultingservices.com";
+            $password = "Ganesh_2021";
+            $port = "587";
+            $to = "sam@samdevelopers.co.in";
 
-            $email_from = "nandy.infonaut@gmail.com";
-            $email_subject = "Test Mail" ;
-            $email_body = "whatever you like" ;
-            $email_address = "nandy.infonaut@gmail.com";
+            $email_from = "shekhar_katagi@3sitconsultingservices.com";
+            $email_subject = $_POST['subject'] ;
+            $email_body = $_POST['message'] ;
+            $email_address = $_POST['email'];
             $content = "text/html; charset=utf-8";
             $mime = "1.0";
 
